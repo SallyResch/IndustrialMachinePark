@@ -1,7 +1,9 @@
 using IndustrialMachinePark.Components;
 using IndustrialMachinePark.Contracts.Repositories;
+using IndustrialMachinePark.Contracts.Services;
 using IndustrialMachinePark.Data;
 using IndustrialMachinePark.Repositories;
+using IndustrialMachinePark.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +16,8 @@ builder.Services.AddDbContextFactory<AppDbContext>(options =>
 options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]));
 
 builder.Services.AddScoped<IMachineRepository, MachineRepository>();
+builder.Services.AddScoped<IMachineDataService, MachineDataService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
