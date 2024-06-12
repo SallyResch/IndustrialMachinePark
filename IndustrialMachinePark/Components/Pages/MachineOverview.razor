@@ -1,0 +1,10 @@
+﻿@page "/machines"
+<h3>MachineOverview</h3>
+
+@code {
+    public List<Machine> Machines { get; set; } = default!;
+    [Inject]
+    public IMachineDataService? MachineDataService { get; set; }
+
+    protected async override Task OnInitializedAsync() => Machines = (await MachineDataService.GetAllMachines()).ToList();
+}
