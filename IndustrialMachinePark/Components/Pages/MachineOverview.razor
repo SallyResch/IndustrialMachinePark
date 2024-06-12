@@ -3,26 +3,31 @@
 
 <h3>MachineOverview</h3>
 
-@if(Machines == null)
+@if (Machines == null)
 {
     <p>Loading machines...</p>
 }
 else
 {
-    <table class="table table-striped tabel-success table-hover">
+    <table class="table table-success table-hover">
         <thead>
             <tr>
+                <th></th>
                 <th>Machine ID</th>
                 <th>Name</th>
                 <th>Latest Data</th>
-                <th>Online/OffLine</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
-            @foreach(var machine in Machines)
+            @foreach (var machine in Machines)
             {
                 <tr>
-                   <td></td>
+                    <td><img src="@($"/images/oven.png")" /></td>
+                    <td>@machine.Id</td>
+                    <td>@machine.Name</td>
+                    <td>@machine.LatestData</td>
+                    <td><OnlineButton IsOnline="machine.IsOnline" OnClick="@(e => ToggleMachineStatus(machine))" /></td>
                 </tr>
             }
         </tbody>
@@ -31,8 +36,20 @@ else
 
 @code {
     public List<Machine> Machines { get; set; } = default!;
+
     [Inject]
     public IMachineDataService? MachineDataService { get; set; }
 
-    protected async override Task OnInitializedAsync() => Machines = (await MachineDataService.GetAllMachines()).ToList();
+    protected async override Task OnInitializedAsync()
+    {
+        Machines = (await MachineDataService.GetAllMachines()).ToList();
+    }
+
+    private void ToggleMachineStatus(Machine machine)
+    {
+        machine.IsOnline = !machine.IsOnline;
+        // Optional: Add logic to save the updated status to the database
+    }
 }
+
+

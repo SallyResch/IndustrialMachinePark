@@ -1,0 +1,27 @@
+﻿<div class="btn-group" role="group" aria-label="Basic radio toggle button group" @attributes="AdditionalAttributes">
+    <input type="radio" class="btn-check" name="btnradio-@this.GetHashCode()" id="btnradio1-@this.GetHashCode()" autocomplete="off" @checked="IsOnline" @onclick="OnClick">
+    <label class="btn btn-outline-success" for="btnradio1-@this.GetHashCode()">Online</label>
+    <input type="radio" class="btn-check" name="btnradio-@this.GetHashCode()" id="btnradio3-@this.GetHashCode()" autocomplete="off" @checked="!IsOnline" @onclick="OnClick">
+    <label class="btn btn-outline-danger" for="btnradio3-@this.GetHashCode()">Offline</label>
+</div>
+
+@code {
+    [Parameter]
+    public bool IsOnline { get; set; }
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> AdditionalAttributes { get; set; }
+
+    private void ToggleStatus()
+    {
+        IsOnline = !IsOnline;
+    }
+}
+
+
