@@ -6,5 +6,6 @@ namespace IndustrialMachinePark.Contracts.Services
     {
         Task<IEnumerable<Machine>> GetAllMachines();
         Task<Machine> GetMachineDetails (string name);
+        Task<Machine> EditMachineByName(string name, Machine updatedMachine);
     }
 }

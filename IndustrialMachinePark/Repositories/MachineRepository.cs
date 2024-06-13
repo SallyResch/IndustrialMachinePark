@@ -28,5 +28,20 @@ namespace IndustrialMachinePark.Repositories
         {
             return await _appDbContext.Machines.FirstOrDefaultAsync(c => c.Name == name);
         }
+
+        public async Task<Machine> EditMachineByName(string name, Machine updatedMachine)
+        {
+            var machine = await _appDbContext.Machines.FirstOrDefaultAsync(c => c.Name == name);
+            if (machine != null)
+            {
+                machine.Name = updatedMachine.Name;
+                machine.IsOnline = updatedMachine.IsOnline;
+                machine.LatestData = updatedMachine.LatestData;
+
+                _appDbContext.Machines.Update(machine);
+                await _appDbContext.SaveChangesAsync();
+            }
+            return machine;
+        }
     }
 }

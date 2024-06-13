@@ -1,7 +1,6 @@
 ﻿@page "/machines"
 @attribute [StreamRendering]
 
-<h3>MachineOverview</h3>
 
 @if (Machines == null)
 {
@@ -23,17 +22,16 @@ else
             @foreach (var machine in Machines)
             {
                 <tr>
-                    <td><img src="@($"/images/oven.png")" /></td>
+                    <td><img src="@($"/images/oven.png")" width="100"/></td>
                     <td>@machine.Id</td>
                     <td>@machine.Name</td>
                     <td>@machine.LatestData</td>
-                    <td><OnlineButton IsOnline="machine.IsOnline" OnClick="@(e => ToggleMachineStatus(machine))" /></td>
+                     <td><OnlineButton IsOnline="@machine.IsOnline" /></td>
                 </tr>
             }
         </tbody>
     </table>
 }
-
 @code {
     public List<Machine> Machines { get; set; } = default!;
 
@@ -45,11 +43,7 @@ else
         Machines = (await MachineDataService.GetAllMachines()).ToList();
     }
 
-    private void ToggleMachineStatus(Machine machine)
-    {
-        machine.IsOnline = !machine.IsOnline;
-        // Optional: Add logic to save the updated status to the database
-    }
 }
+
 
 
