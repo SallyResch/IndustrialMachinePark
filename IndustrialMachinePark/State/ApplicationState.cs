@@ -1,7 +1,9 @@
-﻿namespace IndustrialMachinePark.State
+﻿using IndustrialMachinePark.Models;
+
+namespace IndustrialMachinePark.State
 {
     public class ApplicationState
     {
-        public int NumberOfMachinesOnline { get; set; } = 0;
+        public int NumberOfMachinesOnline { get; set; }
     }
 }
