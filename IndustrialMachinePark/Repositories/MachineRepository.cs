@@ -43,5 +43,9 @@ namespace IndustrialMachinePark.Repositories
             }
             return machine;
         }
+        public async Task<Machine> CreateMachine(Machine machine)
+        {
+            return machine;
+        }
     }
 }
