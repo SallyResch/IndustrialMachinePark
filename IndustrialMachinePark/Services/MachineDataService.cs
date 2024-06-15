@@ -22,6 +22,19 @@ namespace IndustrialMachinePark.Services
         {
             return await _machineRepository.GetMachineById(id);
         }
- 
+        public async Task <Machine> AddMachine (Machine machine)
+        {
+            return await _machineRepository.AddMachine(machine);
+        }
+
+        public async Task UpdateMachine(Machine machine)
+        {
+            await _machineRepository.UpdateMachine(machine);
+        }
+
+        public async Task DeleteMachine(Guid Id)
+        {
+            await _machineRepository.DeleteMachine(Id);
+        }
     }
 }
