@@ -7,6 +7,6 @@ namespace IndustrialMachinePark.Contracts.Repositories
         Task<Machine> GetMachineById(Guid Id);
         Task<Machine> AddMachine (Machine machine);
         Task<Machine> UpdateMachine (Machine machine);
-        Task DeleteMachine (int Id);
+        Task DeleteMachine (Guid Id);
     }
 }

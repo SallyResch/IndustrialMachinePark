@@ -54,8 +54,9 @@ namespace IndustrialMachinePark.Repositories
 
         public async Task DeleteMachine(Guid machineId)
         {
-            var foundMachine = await _appDbContext.Machines.FirstOrDefault(e => e.Id == machineId);
+            var foundMachine = await _appDbContext.Machines.FirstOrDefaultAsync(e => e.Id == machineId);
             if (foundMachine == null) return;
+
             _appDbContext.Machines.Remove(foundMachine);
             await _appDbContext.SaveChangesAsync();
         }
