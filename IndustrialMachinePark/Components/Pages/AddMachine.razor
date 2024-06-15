@@ -1,4 +1,8 @@
 ﻿@page "/addMachine"
 
-<h3>AddMachine</h3>
 
+<h3>Add a new machine</h3>
+
+<form method="post" data-enhance @onsubmit="OnSubmit" @formname="add-machine-form">
+    <AntiforgeryToken/>
+</form>

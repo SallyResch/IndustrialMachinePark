@@ -5,7 +5,9 @@ namespace IndustrialMachinePark.Contracts.Services
     public interface IMachineDataService
     {
         Task<IEnumerable<Machine>> GetAllMachines();
-        Task<Machine> GetMachineDetails (string name);
-        Task<Machine> EditMachineByName(string name, Machine updatedMachine);
+        Task<Machine> GetMachineDetails (Guid Id);
+
+
+        
     }
 }

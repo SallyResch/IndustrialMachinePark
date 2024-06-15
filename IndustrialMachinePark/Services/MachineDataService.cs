@@ -18,14 +18,10 @@ namespace IndustrialMachinePark.Services
             return await _machineRepository.GetAllMachines();
         }
 
-        public async Task<Machine> GetMachineDetails(string name)
+        public async Task<Machine> GetMachineDetails(Guid id)
         {
-            return await _machineRepository.GetMachineByName(name);
+            return await _machineRepository.GetMachineById(id);
         }
-
-        public async Task<Machine> EditMachineByName(string name, Machine updatedMachine)
-        {
-            return await _machineRepository.EditMachineByName(name, updatedMachine);
-        }
+ 
     }
 }

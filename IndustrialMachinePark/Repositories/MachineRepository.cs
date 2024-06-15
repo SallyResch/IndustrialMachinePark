@@ -24,28 +24,40 @@ namespace IndustrialMachinePark.Repositories
             return await _appDbContext.Machines.ToListAsync();
         }
 
-        public async Task<Machine> GetMachineByName(string name)
+        public async Task<Machine> GetMachineById(Guid id)
         {
-            return await _appDbContext.Machines.FirstOrDefaultAsync(c => c.Name == name);
+            return await _appDbContext.Machines.FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public async Task<Machine> EditMachineByName(string name, Machine updatedMachine)
+        public async Task <Machine> AddMachine (Machine machine)
         {
-            var machine = await _appDbContext.Machines.FirstOrDefaultAsync(c => c.Name == name);
-            if (machine != null)
+            var addedEntity = await _appDbContext.Machines.AddAsync(machine);
+            await _appDbContext.SaveChangesAsync();
+            return addedEntity.Entity;
+        }
+
+        public async Task<Machine> UpdateMachine(Machine machine)
+        {
+            var foundMachine = await _appDbContext.Machines.FirstOrDefaultAsync(e => e.Id == machine.Id);
+            if (foundMachine != null)
             {
-                machine.Name = updatedMachine.Name;
-                machine.IsOnline = updatedMachine.IsOnline;
-                machine.LatestData = updatedMachine.LatestData;
+                foundMachine.Id = machine.Id;
+                foundMachine.Name = machine.Name;
+                foundMachine.IsOnline = false;
+                foundMachine.LatestData = machine.LatestData;
 
-                _appDbContext.Machines.Update(machine);
                 await _appDbContext.SaveChangesAsync();
+                return foundMachine;
             }
-            return machine;
+            return null;
         }
-        public async Task<Machine> CreateMachine(Machine machine)
+
+        public async Task DeleteMachine(Guid machineId)
         {
-            return machine;
+            var foundMachine = await _appDbContext.Machines.FirstOrDefault(e => e.Id == machineId);
+            if (foundMachine == null) return;
+            _appDbContext.Machines.Remove(foundMachine);
+            await _appDbContext.SaveChangesAsync();
         }
     }
 }
